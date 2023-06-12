@@ -7,9 +7,9 @@
 //const getProducts = require("../controllers/getProducts");
 const getProductsCart = require("../controllers/GetProductsCart");
 const AddProductCart = require("../controllers/AddProductCart");
-const putProduct = require("../controllers/putProduct");
 const deleteProduct = require("../controllers/DeleteProduct");
-const getProducts = require("./getProducts");
+const getProducts = require("../controllers/getProducts");
+const putProduct = require("../controllers/putProduct");
 
 
 module.exports = {
