@@ -1,4 +1,4 @@
-const getProducts = require("./GetProducts");
+const getProducts = require("./getProducts");
 const getProductsCart = require("./GetProductsCart");
 const AddProductCart = require("./AddProductCart");
 const putProduct = require("./putProduct");
