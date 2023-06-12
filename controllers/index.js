@@ -4,18 +4,18 @@
 // const putProduct = require("./putProduct");
 // const deleteProduct = require("./DeleteProduct");
 
-//const getProducts = require("../controllers/getProducts");
-const getProductsCart = require("../controllers/GetProductsCart");
-const AddProductCart = require("../controllers/AddProductCart");
-const deleteProduct = require("../controllers/DeleteProduct");
-const getProducts = require("../controllers/getProducts");
-const putProduct = require("../controllers/putProduct");
+const getProducts = require("./GetProducts");
+const getProductsCart = require("./GetProductsCart");
+const addProductCart = require("./addProductCart");
+const putProduct = require("./putProduct");
+const deleteProduct = require("./DeleteProduct");
+
 
 
 module.exports = {
   getProducts,
   getProductsCart,
-  AddProductCart,
+  addProductCart,
   putProduct,
   deleteProduct,
 };

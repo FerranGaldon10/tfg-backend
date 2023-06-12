@@ -1,7 +1,7 @@
 const Cart = require("../model/Cart");
 const Product = require("../model/Product");
 
-const AddProductCart = async (req, res) => {
+const addProductCart = async (req, res) => {
   const { name, img, price, size } = req.body;
 
   /* Nos fijamos si tenemos el producto */
@@ -46,7 +46,7 @@ const AddProductCart = async (req, res) => {
   }
 };
 
-module.exports = AddProductCart;
+module.exports = addProductCart;
 
 
 
