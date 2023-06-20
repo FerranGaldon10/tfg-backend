@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "nodemon App.js",
     "start": "node App.js"
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "mailgun-js": "^0.22.0",

@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 
 const db = require('./database');
 const controllers = require('./controllers');
-const contactosServer = require('./server/Contactos');
+// const contactosServer = require('./server/Contactos');
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
@@ -20,6 +20,7 @@ app.use(express.json());
 app.get('/', (req,res) => {
   res.send("Backend Funcionando")
 });
+
 app.get('/products', controllers.getProducts);
 app.get('/products-cart', controllers.getProductsCart);
 
