@@ -6,23 +6,23 @@ const controllers = require('./controllers');
 const contactosServer = require('./server/Contactos');
 
 const app = express();
-const port = 4000;
+const port = process.env.port || 4000;
 
 app.use(cors());
 app.use(express.json());
 
 /* GET */
-app.get('https://tfg-backend-camals.up.railway.app/products', controllers.getProducts);
-app.get('https://tfg-backend-camals.up.railway.app/products-cart', controllers.getProductsCart);
+app.get('/products', controllers.getProducts);
+app.get('/products-cart', controllers.getProductsCart);
 
 /* POST */
-app.post('https://tfg-backend-camals.up.railway.app/products-cart', controllers.addProductCart);
+app.post('/products-cart', controllers.addProductCart);
 
 /* PUT */
-app.put('https://tfg-backend-camals.up.railway.app/products-cart/:productId', controllers.putProduct);
+app.put('/products-cart/:productId', controllers.putProduct);
 
 /* DELETE */
-app.delete('https://tfg-backend-camals.up.railway.app/products-cart/:productId', controllers.deleteProduct);
+app.delete('/products-cart/:productId', controllers.deleteProduct);
 
 app.listen(port, () => {
   console.log(`Server funcionando en el puerto ${port}`);
