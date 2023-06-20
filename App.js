@@ -8,7 +8,7 @@ const controllers = require('./controllers');
 const contactosServer = require('./server/Contactos');
 
 const app = express();
-const port = process.env.port || 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
@@ -32,8 +32,8 @@ app.put('/products-cart/:productId', controllers.putProduct);
 /* DELETE */
 app.delete('/products-cart/:productId', controllers.deleteProduct);
 
-app.listen(port, () => {
-  console.log(`Server funcionando en el puerto ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server funcionando en el puerto ${PORT}`);
   db();
 });
 
