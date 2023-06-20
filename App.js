@@ -8,7 +8,7 @@ const controllers = require('./controllers');
 const contactosServer = require('./server/Contactos');
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
