@@ -40,6 +40,7 @@ const Product = require("../model/Product");
 const deleteProduct = async (req, res) => {
   const { productId } = req.params;
 
+
   try {
     /* Buscamos el producto en el carrito */
     const productInCart = await Cart.findById(productId);
