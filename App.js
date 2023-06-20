@@ -6,6 +6,8 @@ const mailgun = require('mailgun-js');
 const fs = require('fs');
 const path = require('path');
 
+const sgMail = require('@sendgrid/mail');
+
 const mongoose = require('mongoose');
 
 const db = require('./database');
@@ -63,27 +65,53 @@ app.use(
   })
 );
 
+// Configuración de SendGrid
+sgMail.setApiKey('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');
+
 // Servidor 1
 app.post('/contacto', (req, res) => {
   const { nombre, email, asunto, mensaje } = req.body;
 
-  const data = {
-    from: email,
+  const msg = {
     to: 'ferrangaldon100@gmail.com',
+    from: email,
     subject: asunto,
     text: `Nombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}`,
   };
 
-  mg.messages().send(data, (error, body) => {
-    if (error) {
-      console.log(error);
-      res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
-    } else {
-      console.log(body);
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Correo enviado correctamente');
       res.status(200).json({ success: true, message: 'Mensaje enviado correctamente.' });
-    }
-  });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
+    });
 });
+
+// // Servidor 1
+// app.post('/contacto', (req, res) => {
+//   const { nombre, email, asunto, mensaje } = req.body;
+
+//   const data = {
+//     from: email,
+//     to: 'ferrangaldon100@gmail.com',
+//     subject: asunto,
+//     text: `Nombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}`,
+//   };
+
+//   mg.messages().send(data, (error, body) => {
+//     if (error) {
+//       console.log(error);
+//       res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
+//     } else {
+//       console.log(body);
+//       res.status(200).json({ success: true, message: 'Mensaje enviado correctamente.' });
+//     }
+//   });
+// });
 
 // // Servidor 2
 // const filePath = path.join(__dirname, 'emails.txt');
@@ -151,23 +179,46 @@ app.post('/subscribe', (req, res) => {
 app.post('/payform', (req, res) => {
   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
 
-  const data = {
+  const msg = {
     from: email,
     to: 'ferrangaldon100@gmail.com',
     subject: 'Datos de la compra de un usuario',
     text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${cartitems}`,
   };
 
-  mg.messages().send(data, (error, body) => {
-    if (error) {
-      console.log(error);
-      res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
-    } else {
-      console.log(body);
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Correo enviado correctamente');
       res.status(200).json({ success: true, message: 'Mensaje enviado correctamente.' });
-    }
-  });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
+    });
 });
+
+// // Servidor 3
+// app.post('/payform', (req, res) => {
+//   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
+
+//   const data = {
+//     from: email,
+//     to: 'ferrangaldon100@gmail.com',
+//     subject: 'Datos de la compra de un usuario',
+//     text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${cartitems}`,
+//   };
+
+//   mg.messages().send(data, (error, body) => {
+//     if (error) {
+//       console.log(error);
+//       res.status(500).json({ success: false, message: 'Error al enviar el mensaje.' });
+//     } else {
+//       console.log(body);
+//       res.status(200).json({ success: true, message: 'Mensaje enviado correctamente.' });
+//     }
+//   });
+// });
 
 /* GET */
 app.get('/', (req,res) => {
