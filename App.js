@@ -6,6 +6,7 @@ const mailgun = require('mailgun-js');
 const fs = require('fs');
 const path = require('path');
 
+const mongoose = require('mongoose');
 
 const db = require('./database');
 const controllers = require('./controllers');
@@ -27,6 +28,32 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.use(express.json());
+
+
+//Database subscribe
+// Conexión a la base de datos de suscripciones
+const subscriptionDB = mongoose.createConnection('mongodb+srv://subscamals:subscamals@cluster0.ts9mtji.mongodb.net/?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+subscriptionDB.on('open', () => {
+  console.log('Connected to subscription database');
+});
+subscriptionDB.on('error', (error) => {
+  console.error('Error connecting to subscription database:', error);
+});
+
+const subscriptionSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  }
+});
+
+const Subscription = subscriptionDB.model('Subscription', subscriptionSchema);
+//
+
 
 app.use(
   cors({
@@ -58,35 +85,65 @@ app.post('/contacto', (req, res) => {
   });
 });
 
-// Servidor 2
-const filePath = path.join(__dirname, 'emails.txt');
+// // Servidor 2
+// const filePath = path.join(__dirname, 'emails.txt');
 
+// app.post('/subscribe', (req, res) => {
+//   const { email } = req.body;
+
+//   if (!email.includes('@')) {
+//     res.status(400).json({ message: 'Invalid email' });
+//   } else {
+//     fs.readFile(filePath, 'utf8', (err, data) => {
+//       if (err) {
+//         console.log(err);
+//         res.status(500).json({ message: 'Error subscribing' });
+//       } else {
+//         const emails = data.split('\n');
+//         if (emails.includes(email)) {
+//           res.status(409).json({ message: 'Email already exists' });
+//         } else {
+//           fs.appendFile(filePath, `${email}\n`, (err) => {
+//             if (err) {
+//               console.log(err);
+//               res.status(500).json({ message: 'Error subscribing' });
+//             } else {
+//               res.json({ message: 'Subscribed successfully' });
+//             }
+//           });
+//         }
+//       }
+//     });
+//   }
+// });
+
+//Servidor 2
 app.post('/subscribe', (req, res) => {
   const { email } = req.body;
 
   if (!email.includes('@')) {
     res.status(400).json({ message: 'Invalid email' });
   } else {
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ message: 'Error subscribing' });
-      } else {
-        const emails = data.split('\n');
-        if (emails.includes(email)) {
+    Subscription.findOne({ email: email })
+      .then((subscription) => {
+        if (subscription) {
           res.status(409).json({ message: 'Email already exists' });
         } else {
-          fs.appendFile(filePath, `${email}\n`, (err) => {
-            if (err) {
-              console.log(err);
-              res.status(500).json({ message: 'Error subscribing' });
-            } else {
+          const newSubscription = new Subscription({ email: email });
+          newSubscription.save()
+            .then(() => {
               res.json({ message: 'Subscribed successfully' });
-            }
-          });
+            })
+            .catch((error) => {
+              console.log(error);
+              res.status(500).json({ message: 'Error subscribing' });
+            });
         }
-      }
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json({ message: 'Error subscribing' });
+      });
   }
 });
 
