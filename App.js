@@ -14,9 +14,9 @@ const controllers = require('./controllers');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-//const mg = mailgun({ apiKey: '5737fc6e35998bf799e68117cdc9d3d4-70c38fed-7665ed5f', domain: 'sandbox2d5fca84a86847e28a3c1faecd63ce02.mailgun.org' });
+const mg = mailgun({ apiKey: '5737fc6e35998bf799e68117cdc9d3d4-70c38fed-7665ed5f', domain: 'sandbox2d5fca84a86847e28a3c1faecd63ce02.mailgun.org' });
 
-const mg = mailgun({ apiKey: '7c99c3bcad61b0bc446f9016d04f76b0-135a8d32-ce451d9e', domain: 'sandbox10980ac3e61c477987f62bdd39560674.mailgun.org' });
+// const mg = mailgun({ apiKey: '7c99c3bcad61b0bc446f9016d04f76b0-135a8d32-ce451d9e', domain: 'sandbox10980ac3e61c477987f62bdd39560674.mailgun.org' });
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
