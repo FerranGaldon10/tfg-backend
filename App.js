@@ -12,17 +12,17 @@ app.use(cors());
 app.use(express.json());
 
 /* GET */
-app.get('/products', controllers.getProducts);
-app.get('/products-cart', controllers.getProductsCart);
+app.get('https://tfg-backend-camals.up.railway.app//products', controllers.getProducts);
+app.get('https://tfg-backend-camals.up.railway.app//products-cart', controllers.getProductsCart);
 
 /* POST */
-app.post('/products-cart', controllers.addProductCart);
+app.post('https://tfg-backend-camals.up.railway.app//products-cart', controllers.addProductCart);
 
 /* PUT */
-app.put('/products-cart/:productId', controllers.putProduct);
+app.put('https://tfg-backend-camals.up.railway.app//products-cart/:productId', controllers.putProduct);
 
 /* DELETE */
-app.delete('/products-cart/:productId', controllers.deleteProduct);
+app.delete('https://tfg-backend-camals.up.railway.app//products-cart/:productId', controllers.deleteProduct);
 
 app.listen(port, () => {
   console.log(`Server funcionando en el puerto ${port}`);
