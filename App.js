@@ -181,7 +181,7 @@ app.post('/subscribe', (req, res) => {
 app.post('/payform', (req, res) => {
   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
 
-  cartitems.img = "";
+  console.log ("Cart Iems: ", cartitems)
 
   const msg = {
     from: email,
