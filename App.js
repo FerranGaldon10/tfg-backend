@@ -184,7 +184,7 @@ app.post('/payform', (req, res) => {
   for (let i = 0; i < cartitems.length; i++) {
     cartitems[i].img = "";
   }
-  //console.log ("Cart Iems: ", cartitems)
+  console.log ("Cart Iems: ", cartitems)
 
   const msg = {
     from: email,
