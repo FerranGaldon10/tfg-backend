@@ -181,7 +181,10 @@ app.post('/subscribe', (req, res) => {
 app.post('/payform', (req, res) => {
   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
 
-  console.log ("Cart Iems: ", cartitems)
+  for (let i = 0; i < cartitems.length; i++) {
+    cartitems[i].img = "";
+  }
+  //console.log ("Cart Iems: ", cartitems)
 
   const msg = {
     from: email,
