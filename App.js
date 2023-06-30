@@ -181,16 +181,19 @@ app.post('/subscribe', (req, res) => {
 app.post('/payform', (req, res) => {
   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
 
-  for (let i = 0; i < cartitems.length; i++) {
-    cartitems[i].img = undefined;
+  const parsedCartItems = JSON.parse(cartitems);
+
+  for (let i = 0; i < parsedCartItems.length; i++) {
+    parsedCartItems[i].img = "";
   }
-  console.log ("Cart Iems: ", cartitems)
+
+  console.log ("Cart Iems: ", parsedCartItems)
 
   const msg = {
     from: email,
     to: 'ferrangaldon100@gmail.com',
     subject: 'Datos de la compra de un usuario',
-    text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${cartitems}`,
+    text: `-Datos del comprador-\nEmail: ${email}\nPaís: ${country}\nNombre: ${name}\nApellidos: ${surnames}\nDirección: ${street}\nMas información de la dirección: ${house}\nCódigo Postal: ${postal}\nCiudad: ${city}\nProvíncia o estado: ${state}\nTeléfono: ${phone}\n-Datos bancarios del comprador-\nNúmero de la tarjeta: ${number}\nFecha de caducidad: ${expire}\nCVV/CVC: ${cvv}\n-Productos que ha comprado-\n${parsedCartItems}`,
   };
 
   sgMail
