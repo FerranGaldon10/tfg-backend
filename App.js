@@ -182,7 +182,7 @@ app.post('/payform', (req, res) => {
   const { email, country, name, surnames, street, house, postal, city, state, phone, number, expire, cvv, cartitems } = req.body;
 
   for (let i = 0; i < cartitems.length; i++) {
-    cartitems[i].img = "";
+    cartitems[i].img = undefined;
   }
   console.log ("Cart Iems: ", cartitems)
 
